@@ -1,9 +1,12 @@
 import random
+
 class Fish:
+
     
-    def __init__(self,name,size):
+    def __init__(self, name, size):
         self.fish_name = name
         self.fish_size = size
+
 
 Pike = Fish('Pike', 10)
 Sushi = Fish('Sushi', 12)
@@ -23,21 +26,31 @@ tough = Fish('tough', 15)
 spadefish = Fish('spadefish', 15)
 
 class pond:
+
     
     pondsname = str(raw_input("enter the pond name:"))
-    def __init__(self,pondsname=None,capacity=0):
+    
+    def __init__(self, pondsname=None, capacity=0):
         self.fishlist=[]
-        self.pond_name = pondsname
-        self.pond_capacity = capacity
+        self.name = pondsname
+        self.capacity = capacity
         
-    def __addfish__(self,fish):
-        self.fishlist.append((fish.fish_name, fish.fish_size))
+    def __addfish__(self, fish):
+        self.fishlist.append((fish.name, fish.size))
+        return self.fishlist
         
-    def pondcapacity(self):
+    def getemptyspace(self):
         strength = len(self.fishlist)
-        emptyspace = self.pond_capacity - strength
+        emptyspace = self.capacity - strength
         print "you have %r emptyspace in this pond" %emptyspace
-        return self.fishlist      
+        return self.fishlist
+    
+    def fishreduce(self, randomfish):
+        self.fishlist.remove(randomfish)
+        print self.fishlist
+        return self.fishlist
+
+
     
 naile = pond("naile",10)
 naile.__addfish__(Pike)
@@ -66,46 +79,40 @@ brook.__addfish__(Pike)
 
 class fisher():
       
-    def fisher_details(self,fishlist):
+    def __init__(self):
+        self.selectedfish = []
+        
+    def fisher_details(self):
         fishername = str(raw_input("enter the fisher name:"))
-        if p.pondsname == "naile":
-            self.selectedpond=naile.pondcapacity()
-            print "naile", self.selectedpond
-        elif p.pondsname == "lotus":
-            self.selectedpond= lotus.pondcapacity()
-            print "lotus", self.selectedpond
-        elif p.pondsname == "brook":
-            self.selectedpond = brook.pondcapacity()
-            print "brook", self.selectedpond
-            
+    
+    def catchfish(self, userselectedpond):
+        randomfish = random.choice(userselectedpond.fishlist)
+        if randomfish[1] >= 10:
+            self.selectedfish.append(randomfish)
+            print self.selectedfish[0]
+            return  self.selectedfish[0]
         else:
-            print"you have entered wrong pond"
-       
-    def catchfish(self):
-        self.randomfish = random.choice(self.selectedpond)
-        self.selectedpond.remove(self.randomfish)
-        print self.randomfish
-        print self.selectedpond
-        return self.randomfish
-
-    def checkfishsize(self):
-         selectedfish = []
-         if self.randomfish[1] >=10:
-             selectedfish.append(self.randomfish)
-         else:
-             print "you got nothing"
-             self.selectedpond.append(self.randomfish)
-            
-         print selectedfish
-         print self.selectedpond     
+            info = "there is no fishes of your expected size"
+            return info
      
 if __name__== '__main__':
-    p = pond()
-    f = fisher()
-    f.fisher_details(1)
-    print len(naile.pondcapacity())
-    f.catchfish()
-    print len(naile.pondcapacity())
-    f.checkfishsize()
-    
-    
+
+    user = pond()
+    fisher = Fisher()
+    fisher.fisher_details()
+    if user.pondsname == "naile":
+        naile.getemptyspace()
+        random = fisher.catchfish(naile)
+        print random
+        naile.fishreduce(random)
+    elif user.pondsname == "lotus":
+        naile.getemptyspace()
+        randomfish = fisher.catchfish(lotus)
+        lotus.fishreduce(randomfish)
+    elif user.pondsname == "brook":
+        brook.getemptyspace()
+        gotfish = fisher.catchfish(brook)
+        brook.fishreduce(gotfish)
+    else:
+        print "you have entered wrong pond"
+
