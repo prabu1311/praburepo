@@ -1,2 +1,0 @@
-# praburepo
-my repository
