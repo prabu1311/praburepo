@@ -13,8 +13,8 @@ files=$(find conffiles -type f -name "*.conf")
 #for loop takes the file one by one  and checks for the word given and replace it with new value from $1(input file)
 for file in $files 
 do
-  sed -i  's#dbuser#'$baseUsername'#g; s#dbPass#'$basePassword'#g; s#awskey#'$baseAccesskey'#g; s#awssecret#'$baseSecretkey'#g' /var/lib/jenkins/workspace/configfiles/$file 
-  echo 's#dbuser#'$baseUsername'#g; s#dbPass#'$basePassword'#g; s#awskey#'$baseAccesskey'#g; s#awssecret#'$baseSecretkey'#g' /var/lib/jenkins/workspace/configfiles/$file 
+  sed -i  's#dbuser#'$baseUsername'#g; s#dbPass#'$basePassword'#g; s#awskey#'$baseAccesskey'#g; s#awssecret#'$baseSecretkey'#g' $file 
+  echo 's#dbuser#'$baseUsername'#g; s#dbPass#'$basePassword'#g; s#awskey#'$baseAccesskey'#g; s#awssecret#'$baseSecretkey'#g' $file 
 done
 
 
